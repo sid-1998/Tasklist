@@ -4,8 +4,8 @@ const filter = document.querySelector('#filter');
 const taskList = document.querySelector('.collection');
 const clearBtn = document.querySelector('.clear-tasks');
 
+// submit task event
 form.addEventListener('submit', addTask);
-
 function addTask(e){
     if(taskInput.value === ''){
         alert('Add a task');
@@ -31,7 +31,7 @@ function addTask(e){
 }
 
 
-
+// removing a particular task
 taskList.addEventListener('click', removeTask);
 
 function removeTask(e){
@@ -41,6 +41,7 @@ function removeTask(e){
     
 }
 
+// removing all tasks at once
 clearBtn.addEventListener('click', clearAllTasks);
 function clearAllTasks(e){
     // let a = new Date().getTime();
@@ -65,4 +66,20 @@ function clearAllTasks(e){
     // console.log(b);
     // console.log(c);
     e.preventDefault();
+}
+
+//filtering task on the basisi of content
+filter.addEventListener('keyup', filterTasks);
+function filterTasks(e){
+    const text = e.target.value.toLowerCase();
+    const items = document.querySelectorAll('.collection-item');
+    
+    items.forEach(function filterItems(item){
+        if(item.textContent.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+        }
+        else{
+            item.style.display = 'none';
+        }
+    })
 }
