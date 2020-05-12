@@ -40,3 +40,29 @@ function removeTask(e){
     }
     
 }
+
+clearBtn.addEventListener('click', clearAllTasks);
+function clearAllTasks(e){
+    // let a = new Date().getTime();
+
+    // poor performance
+    // const allTasks = Array.from(taskList.children);
+    // allTasks.forEach(function(task){
+    //     task.remove();
+    // })
+
+    //fastest way
+    while(taskList.firstChild){
+        taskList.removeChild(taskList.firstChild)
+    }
+
+    // slower way
+    // taskList.innerHTML = '';
+
+    // let b = new Date().getTime();
+    // let c = b-a;
+    // console.log(a);
+    // console.log(b);
+    // console.log(c);
+    e.preventDefault();
+}
