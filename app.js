@@ -10,19 +10,33 @@ function addTask(e){
     if(taskInput.value === ''){
         alert('Add a task');
     }
-    // create a li element
-    const li = document.createElement('li');
-    li.className = 'collection-item';
-    const textNode = document.createTextNode(taskInput.value);
-    li.appendChild(textNode);
-    
-    //delete icon
-    const link = document.createElement('a');
-    link.className = 'detele-item secondary-content';//secondary-content is a materialize class added to make the icon appear on the left side.
-    link.innerHTML = '<i class="fa fa-remove"></i>';
+    else{
+        // create a li element
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        const textNode = document.createTextNode(taskInput.value);
+        li.appendChild(textNode);
+        
+        //delete icon
+        const link = document.createElement('a');
+        link.className = 'delete-item secondary-content';//secondary-content is a materialize class added to make the icon appear on the left side.
+        link.innerHTML = '<i class="fa fa-remove"></i>';
 
-    li.appendChild(link);
-    taskList.appendChild(li);
-    taskInput.value = '';
+        li.appendChild(link);
+        taskList.appendChild(li);
+        taskInput.value = '';
+    }
+
     e.preventDefault();
+}
+
+
+
+taskList.addEventListener('click', removeTask);
+
+function removeTask(e){
+    if(e.target.parentElement.classList.contains('delete-item')){
+        e.target.parentElement.parentElement.remove();
+    }
+    
 }
