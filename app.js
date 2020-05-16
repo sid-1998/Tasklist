@@ -69,7 +69,7 @@ function removeFromLocalStorage(taskItem){
 
     tasks.forEach(function(task, index){
         if(taskItem.textContent === task){
-            tasks.splice(index);
+            tasks.splice(index, 1);
         }
     })
 
