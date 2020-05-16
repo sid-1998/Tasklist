@@ -52,8 +52,28 @@ taskList.addEventListener('click', removeTask);
 function removeTask(e){
     if(e.target.parentElement.classList.contains('delete-item')){
         e.target.parentElement.parentElement.remove();
+
+        removeFromLocalStorage(e.target.parentElement.parentElement);
     }
     
+}
+//removing a particular task from local storage
+function removeFromLocalStorage(taskItem){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    }
+    else{
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    tasks.forEach(function(task, index){
+        if(taskItem.textContent === task){
+            tasks.splice(index);
+        }
+    })
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // removing all tasks at once
@@ -71,7 +91,7 @@ function clearAllTasks(e){
     while(taskList.firstChild){
         taskList.removeChild(taskList.firstChild)
     }
-
+    localStorage.clear();
     // slower way
     // taskList.innerHTML = '';
 
