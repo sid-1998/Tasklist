@@ -24,12 +24,27 @@ function addTask(e){
 
         li.appendChild(link);
         taskList.appendChild(li);
+
+        storeInLocalStorage(taskInput.value);
+
         taskInput.value = '';
     }
 
     e.preventDefault();
 }
+// Adding task to LocalStorage
+function storeInLocalStorage(task){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    }
+    else{
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    tasks.push(task);
 
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
 // removing a particular task
 taskList.addEventListener('click', removeTask);
@@ -82,4 +97,33 @@ function filterTasks(e){
             item.style.display = 'none';
         }
     })
+}
+
+//DOM load event for displaying persisted tasks
+document.addEventListener('DOMContentLoaded', getTasks);
+
+function getTasks(){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    }
+    else{
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    tasks.forEach(function(task){
+        li = document.createElement('li');
+        li.className = 'collection-item';
+
+        li.appendChild(document.createTextNode(task));
+
+        link = document.createElement('a');
+        link.className = 'delete-item secondary-content';
+        link.innerHTML = '<i class="fa fa-remove" i></i>';
+
+        li.appendChild(link);
+
+        taskList.append(li);
+    })
+
 }
